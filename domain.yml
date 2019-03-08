@@ -1,0 +1,59 @@
+intents:
+- greet
+- goodbye
+- thanks
+- affirm
+- deny
+- letter
+
+
+entities:
+- letter
+
+
+slots:
+  letter:
+    type: unfeaturized
+  hangman:
+    type: unfeaturized
+
+
+actions:
+- utter_thanks
+- utter_greet
+- utter_maybe_next_time
+- utter_goodbye
+- utter_letter_input
+- utter_ask_letter
+- utter_game_over
+- utter_winner
+
+
+templates:
+  utter_greet:
+  - text: "Shall we play a game?"
+
+  utter_maybe_next_time:
+  - text: "Maybe next time."
+
+  utter_goodbye:
+  - text: "Talk to you later!"
+  
+  utter_thanks:
+  - text: "My pleasure."
+
+  utter_letter_input:
+  - text: "You entered '{letter}', however the game is not active."
+  
+  utter_ask_letter:
+  - text: "Guess a letter ..."
+  
+  utter_game_over:
+    - text: "Game Over"
+  
+  utter_winner:
+    - text: "Well done!"
+
+
+forms:
+  - form_hangman

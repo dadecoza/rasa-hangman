@@ -1,0 +1,47 @@
+version: '3.0'
+
+services:
+  rasa_core:
+    image: rasa/rasa_core:latest
+    ports:
+      - 5005:5005
+    volumes:
+      - ./models/rasa_core:/app/models
+      - ./config:/app/config
+      - .:/app/project
+    command:
+      - start
+      - --core
+      - models
+      - -c
+      - rest
+      - --endpoints
+      - config/endpoints.yml
+      - -u
+      - current/
+      - --debug
+  rasa_nlu:
+    image: rasa/rasa_nlu:latest-spacy
+    ports:
+      - 5000:5000
+    volumes:
+      - ./models/rasa_nlu:/app/models
+      - ./config:/app/config
+    command:
+      - start
+      - --path
+      - models
+      - -c
+      - config/nlu_config.yml
+  action_server:
+    image: rasa/rasa_core_sdk:latest
+    volumes:
+      - ./actions:/app/actions
+  redis:
+     image: redis:latest
+  webchat:
+    image: dadecoza/rasa-simple-webchat:latest
+    environment:
+      - endpoint=http://rasa_core:5005/webhooks/rest/webhook
+    ports:
+      - 8080:8080
