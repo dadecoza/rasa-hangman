@@ -38,8 +38,8 @@ class FormHangman(FormAction):
             word = data["word"]
             if letter not in data["guess"]:
                 data["guess"].append(letter)
-            if letter not in word:
-                data["incorrect"] = data["incorrect"] + 1
+                if letter not in word:
+                    data["incorrect"] = data["incorrect"] + 1
             mask = " ".join([l if l in data["guess"] else "_" for l in word])
             dispatcher.utter_message(mask)
 
